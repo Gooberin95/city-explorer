@@ -24,7 +24,36 @@ class App extends React.Component {
   render() {
     return(
       <>
-        <input onChange={(e) => this.setState({ searchQuery: e.target.value })} placeholder="search for a city"></input>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Location </Form.Label>
+            <Form.Control placeholder="Enter City name:" onChange={(e) => this.setState({ searchQuery: e.target.value })} />
+            <Button variant="secondary" onClick={this.getLocation}>Explore!</Button>
+          </Form.Group>
+          
+        </Form>
+        {this.state.location.place_id && 
+          
+          <h2>Latitude is {this.state.location.display_name}</h2>
+        }
+        {this.state.location.place_id && 
+          
+          <h2>Latitude is {this.state.location.lat}</h2>
+        }
+          {this.state.location.place_id && 
+          
+          <h2>Latitude is {this.state.location.lon}</h2>
+          }
+        
+
+      </>
+    )
+  }
+}
+
+export default App;
+
+{/* <input onChange={(e) => this.setState({ searchQuery: e.target.value })} placeholder="search for a city"></input>
         <button onClick={this.getLocation}>Explore!</button>
         {this.state.location.place_id && 
           
@@ -37,12 +66,4 @@ class App extends React.Component {
           {this.state.location.place_id && 
           
           <h2>Latitude is {this.state.location.lon}</h2>
-        }
-
-      </>
-    )
-  }
-}
-
-export default App;
-
+        } */}
