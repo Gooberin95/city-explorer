@@ -52,18 +52,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-{/* <input onChange={(e) => this.setState({ searchQuery: e.target.value })} placeholder="search for a city"></input>
-        <button onClick={this.getLocation}>Explore!</button>
-        {this.state.location.place_id && 
-          
-          <h2>Latitude is {this.state.location.display_name}</h2>
-        }
-        {this.state.location.place_id && 
-          
-          <h2>Latitude is {this.state.location.lat}</h2>
-        }
-          {this.state.location.place_id && 
-          
-          <h2>Latitude is {this.state.location.lon}</h2>
-        } */}
