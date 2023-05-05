@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+
 
 class App extends React.Component {
   constructor(props){
@@ -33,21 +35,23 @@ class App extends React.Component {
           </Form.Group>
           
         </Form>
-        {this.state.location.place_id && 
-          
-          <h2>Latitude is {this.state.location.display_name}</h2>
-        }
-        {this.state.location.place_id && 
-          
-          <h2>Latitude is {this.state.location.lat}</h2>
-        }
-          {this.state.location.place_id && 
-          
-          <h2>Latitude is {this.state.location.lon}</h2>
-          }
+        <Card style={{ width: '18rem' }}>
+        <Card.Img variant="center" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=<zoom>`} alt={this.state.location.display_name}/>
+          <Card.Body>
+            <Card.Title>{this.state.location.display_name}</Card.Title>
+            <Card.Text>
+            
+
+            {this.state.location.lat}
+        
+            {this.state.location.lon}
+            </Card.Text>
+            
+          </Card.Body>
+         </Card>
+        
            
           
-          <img src ={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=<zoom>`} alt={this.state.location.display_name}/>
           
       </>
     )
