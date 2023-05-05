@@ -40,7 +40,7 @@ class App extends React.Component {
           <Card.Body>
             <Card.Title>{this.state.location.display_name}</Card.Title>
             <Card.Text>
-            
+            Welcome to my app
 
             {this.state.location.lat}
         
