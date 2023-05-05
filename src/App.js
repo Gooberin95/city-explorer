@@ -18,6 +18,7 @@ class App extends React.Component {
     const res = await axios.get(API);
     console.log(res.data);
     this.setState({ location:res.data[0] });
+    
     console.log(API);
   }
 
@@ -44,8 +45,10 @@ class App extends React.Component {
           
           <h2>Latitude is {this.state.location.lon}</h2>
           }
-        
-
+           
+          
+          <img src ={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=<zoom>`} alt={this.state.location.display_name}/>
+          
       </>
     )
   }
