@@ -40,11 +40,11 @@ class App extends React.Component {
           <Card.Body>
             <Card.Title>{this.state.location.display_name}</Card.Title>
             <Card.Text>
-            Welcome to my app
+            <h2>Welcome to my app</h2>
 
-            {this.state.location.lat}
-        
-            {this.state.location.lon}
+            {`${'Longitutde '}`}{this.state.location.lat}<br></br>
+            
+            {`${'Latitude '}`} {this.state.location.lon}
             </Card.Text>
             
           </Card.Body>
