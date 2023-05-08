@@ -10,7 +10,8 @@ class App extends React.Component {
     super(props);
     this.state={
       searchQuery:'',
-      location: {}
+      location: {},
+      gift: []
     }
   }
 
@@ -24,6 +25,19 @@ class App extends React.Component {
     console.log(API);
   }
 
+  getForecast = async () => {
+    try{
+      const url = `${process.env.REACT_APP_SERVER}/weather?searchQuery=Paris&lat=2.3200410217200766&lon=48.8588897`;
+      const response = await axios.get(url);
+      this.setState({gift: response.data},
+        () => console.log(this.state.gift)
+        )
+    }
+    catch(error){
+      console.error(error.message);
+    }
+  }
+
   render() {
     return(
       <>
@@ -31,7 +45,7 @@ class App extends React.Component {
           <Form.Group className="mb-3">
             <Form.Label>Location </Form.Label>
             <Form.Control placeholder="Enter City name:" onChange={(e) => this.setState({ searchQuery: e.target.value })} />
-            <Button variant="secondary" onClick={this.getLocation}>Explore!</Button>
+            <Button variant="secondary" onClick={this.getForecast}>Explore!</Button>
           </Form.Group>
           
         </Form>
