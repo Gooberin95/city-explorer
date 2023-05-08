@@ -10,7 +10,8 @@ class App extends React.Component {
     super(props);
     this.state={
       searchQuery:'',
-      location: {}
+      location: {},
+      gift: []
     }
   }
 
@@ -22,6 +23,19 @@ class App extends React.Component {
     this.setState({ location:res.data[0] });
     
     console.log(API);
+  }
+
+  getForecast = async () => {
+    try{
+      const url = `${process.env.REACT_APP_SERVER}/weather?searchQuery=Paris&lat=2.3200410217200766&lon=48.8588897`;
+      const response = await axios.get(url);
+      this.setState({gift: response.data},
+        () => console.log(this.state.gift)
+        )
+    }
+    catch(error){
+      console.error(error.message);
+    }
   }
 
   render() {
@@ -40,11 +54,11 @@ class App extends React.Component {
           <Card.Body>
             <Card.Title>{this.state.location.display_name}</Card.Title>
             <Card.Text>
-            Welcome to my app
+            <h2>Welcome to my app</h2>
 
-            {this.state.location.lat}
-        
-            {this.state.location.lon}
+            {`${'Longitutde '}`}{this.state.location.lat}<br></br>
+            
+            {`${'Latitude '}`} {this.state.location.lon}
             </Card.Text>
             
           </Card.Body>
