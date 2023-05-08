@@ -45,7 +45,7 @@ class App extends React.Component {
           <Form.Group className="mb-3">
             <Form.Label>Location </Form.Label>
             <Form.Control placeholder="Enter City name:" onChange={(e) => this.setState({ searchQuery: e.target.value })} />
-            <Button variant="secondary" onClick={this.getForecast}>Explore!</Button>
+            <Button variant="secondary" onClick={this.getLocation}>Explore!</Button>
           </Form.Group>
           
         </Form>
