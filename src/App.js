@@ -23,11 +23,12 @@ class App extends React.Component {
     this.setState({ location:res.data[0] });
     
     console.log(`${this.state.location}`);
+    this.getForecast();
   }
 
   getForecast = async () => {
     try{
-      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.lat}&lon=${this.state.lon}`;
+      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`;
       const response = await axios.get(url);
       this.setState({gift: response.data},
         () => console.log(this.state.gift)
