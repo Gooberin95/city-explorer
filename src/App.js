@@ -12,6 +12,7 @@ class App extends React.Component {
       searchQuery:'',
       location: {},
       gift: []
+      
     }
   }
   
@@ -61,10 +62,13 @@ class App extends React.Component {
             {`${'Longitutde '}`}{this.state.location.lat}<br></br>
             
             {`${'Latitude '}`} {this.state.location.lon}
+            
+            
             </Card.Text>
             
           </Card.Body>
          </Card>
+         <h1>{`${this.state.gift}`}</h1>
         
            
           
