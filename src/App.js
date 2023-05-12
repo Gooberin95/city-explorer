@@ -14,20 +14,20 @@ class App extends React.Component {
       gift: []
     }
   }
-
+  
   getLocation = async () => {
-    const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.searchQuery}&format=json`;
+    const API = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.searchQuery}&format=json`;
     
     const res = await axios.get(API);
     console.log(res.data);
     this.setState({ location:res.data[0] });
     
-    console.log(API);
+    console.log(`${this.state.location}`);
   }
 
   getForecast = async () => {
     try{
-      const url = `${process.env.REACT_APP_SERVER}/weather?searchQuery=Paris&lat=2.3200410217200766&lon=48.8588897`;
+      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.lat}&lon=${this.state.lon}`;
       const response = await axios.get(url);
       this.setState({gift: response.data},
         () => console.log(this.state.gift)
@@ -35,6 +35,7 @@ class App extends React.Component {
     }
     catch(error){
       console.error(error.message);
+
     }
   }
 
@@ -50,7 +51,7 @@ class App extends React.Component {
           
         </Form>
         <Card style={{ width: '18rem' }}>
-        <Card.Img variant="center" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=<zoom>`} alt={this.state.location.display_name}/>
+        <Card.Img variant="center"/>
           <Card.Body>
             <Card.Title>{this.state.location.display_name}</Card.Title>
             <Card.Text>
