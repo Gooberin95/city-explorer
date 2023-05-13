@@ -12,7 +12,9 @@ class App extends React.Component {
     this.state = {
       searchQuery: '',
       location: {},
-      gift: []
+      gift: [],
+      movies: [],
+      videoStats: []
 
     }
   }
@@ -26,6 +28,28 @@ class App extends React.Component {
 
     console.log(`${this.state.location}`);
     this.getForecast();
+    this.getMovies();
+  }
+
+  getMovies = async () => {
+    try {
+      const url = `${process.env.REACT_APP_SERVER}/movies?lat=${this.state.location.lat}&lon=${this.state.location.lon}`;
+      const response = await axios.get(url);
+      this.setState({ gift: response.data },
+        () => console.log(this.state.gift)
+      )
+    }
+    catch (error) {
+      console.error(error.message);
+
+    }
+    
+    const movieRes = await axios.get(API);
+    console.log(movieRes.data);
+    this.setState({ videoStats: movieRes.data[0] });
+
+    console.log(`${this.state.videoStats}`);
+    
   }
 
   getForecast = async () => {
