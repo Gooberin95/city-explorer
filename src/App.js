@@ -123,9 +123,9 @@ class App extends React.Component {
               <Container>
                 <Row>
                   <hr></hr>
-                  <Col sm={14}>Movie Title: {item.title}</Col>
-                  <Col sm={14}>Movie overview: {item.overview}</Col>
-                  <Col sm={14}>Movie Popularity: {item.popularity}</Col>
+                  <Col sm={4}><h3><u>Movie Title</u></h3><b>{item.title}</b></Col>
+                  <Col sm={4}><h3><u>Movie overview</u></h3>{item.overview}</Col>
+                  <Col sm={4}><h3><u>Movie Popularity</u></h3>{item.popularity}</Col>
                   
                 </Row>
               
