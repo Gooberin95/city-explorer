@@ -104,9 +104,9 @@ class App extends React.Component {
             <>
               <Container>
                 <Row>
-                  <Col>{item.date}</Col>
-                  <Col>{item.temp}</Col>
-                  <Col>{item.description}</Col>
+                  <Col sm={4}>{item.date}</Col>
+                  <Col sm={4}>{item.temp}</Col>
+                  <Col sm={4}>{item.description}</Col>
                 </Row>
               
               </Container>
@@ -122,9 +122,11 @@ class App extends React.Component {
             <>
               <Container>
                 <Row>
-                  <Col>{item.popularity}</Col>
-                  <Col>{item.title}</Col>
-                  <Col>{item.overview}</Col>
+                  <hr></hr>
+                  <Col sm={14}>Movie Title: {item.title}</Col>
+                  <Col sm={14}>Movie overview: {item.overview}</Col>
+                  <Col sm={14}>Movie Popularity: {item.popularity}</Col>
+                  
                 </Row>
               
               </Container>
