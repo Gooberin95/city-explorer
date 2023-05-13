@@ -24,19 +24,21 @@ class App extends React.Component {
 
     const res = await axios.get(API);
     console.log(res.data);
-    this.setState({ location: res.data[0] });
+    this.setState({ location: res.data[0] }); //this is not available globally yet , so you must access lat and lon through arguments inside getForecast function call
 
     console.log(`${this.state.location}`);
-    this.getForecast();
-    this.getMovies();
+    //  this.getForecast(res.data[0].lat, res.data[0].lon);
+    this.getMovies(this.state.searchQuery);
   }
 
-  getMovies = async () => {
+  getMovies = async (searchQuery) => {
+    console.log(searchQuery);
     try {
-      const url = `${process.env.REACT_APP_SERVER}/movies?lat=${this.state.location.lat}&lon=${this.state.location.lon}`;
+      const url = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${searchQuery}`;
       const response = await axios.get(url);
-      this.setState({ gift: response.data },
-        () => console.log(this.state.gift)
+      console.log(response)
+      this.setState({ vids: response.data},
+        () => console.log(`${this.state.vids}`)
       )
     }
     catch (error) {
@@ -44,21 +46,19 @@ class App extends React.Component {
 
     }
     
-    const movieRes = await axios.get(API);
-    console.log(movieRes.data);
-    this.setState({ videoStats: movieRes.data[0] });
-
-    console.log(`${this.state.videoStats}`);
     
   }
 
-  getForecast = async () => {
+  getForecast = async (lat, lon) => {
     try {
-      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.location.lat}&lon=${this.state.location.lon}`;
+      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`;
+      console.log(url);
       const response = await axios.get(url);
+      
       this.setState({ gift: response.data },
         () => console.log(this.state.gift)
       )
+      
     }
     catch (error) {
       console.error(error.message);
@@ -67,6 +67,7 @@ class App extends React.Component {
   }
 
   render() {
+    
     return (
       <>
         <Form>
@@ -99,7 +100,7 @@ class App extends React.Component {
           this.state.gift.map(item =>
             <>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
+                <Card.Img variant="top"/>
                 <Card.Body>
                   <Card.Title>{item.date}</Card.Title>
                   <Card.Text>
@@ -109,8 +110,7 @@ class App extends React.Component {
                   
                 </Card.Body>
               </Card>
-              <p>{item.name}</p>
-              <p>{item.description}</p>
+            
             </>
           )
         }
