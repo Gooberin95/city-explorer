@@ -3,6 +3,9 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -27,7 +30,7 @@ class App extends React.Component {
     this.setState({ location: res.data[0] }); //this is not available globally yet , so you must access lat and lon through arguments inside getForecast function call
 
     console.log(`${this.state.location}`);
-    //  this.getForecast(res.data[0].lat, res.data[0].lon);
+     this.getForecast(res.data[0].lat, res.data[0].lon);
     this.getMovies(this.state.searchQuery);
   }
 
@@ -37,16 +40,16 @@ class App extends React.Component {
       const url = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${searchQuery}`;
       const response = await axios.get(url);
       console.log(response)
-      this.setState({ vids: response.data},
-        () => console.log(`${this.state.vids}`)
+      this.setState({ movies: response.data },
+        () => console.log(`${this.state.movies}`)
       )
     }
     catch (error) {
       console.error(error.message);
 
     }
-    
-    
+
+
   }
 
   getForecast = async (lat, lon) => {
@@ -54,11 +57,11 @@ class App extends React.Component {
       const url = `${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`;
       console.log(url);
       const response = await axios.get(url);
-      
+
       this.setState({ gift: response.data },
         () => console.log(this.state.gift)
       )
-      
+
     }
     catch (error) {
       console.error(error.message);
@@ -67,7 +70,7 @@ class App extends React.Component {
   }
 
   render() {
-    
+
     return (
       <>
         <Form>
@@ -99,24 +102,45 @@ class App extends React.Component {
         {this.state.gift.length > 0 &&
           this.state.gift.map(item =>
             <>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top"/>
-                <Card.Body>
-                  <Card.Title>{item.date}</Card.Title>
-                  <Card.Text>
-                    {item.temp}
-                  </Card.Text>
-                    {item.description}
-                  
-                </Card.Body>
-              </Card>
+              <Container>
+                <Row>
+                  <Col>{item.date}</Col>
+                  <Col>{item.temp}</Col>
+                  <Col>{item.description}</Col>
+                </Row>
+              
+              </Container>
             
             </>
+     
+        
+        
           )
         }
+        {this.state.movies.length > 0 &&
+          this.state.movies.map(item =>
+            <>
+              <Container>
+                <Row>
+                  <Col>{item.popularity}</Col>
+                  <Col>{item.title}</Col>
+                  <Col>{item.overview}</Col>
+                </Row>
+              
+              </Container>
+            
+            </>
+     
+        
+        
+          )
+        }
+      
       </>
     )
   }
 }
+
+
 
 export default App;
