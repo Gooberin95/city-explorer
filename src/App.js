@@ -74,22 +74,22 @@ class App extends React.Component {
     return (
       <>
         <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Location </Form.Label>
+          <Form.Group className = "text-center">
+            <Form.Label>Location&Facts.org</Form.Label>
             <Form.Control placeholder="Enter City name:" onChange={(e) => this.setState({ searchQuery: e.target.value })} />
             <Button variant="secondary" onClick={this.getLocation}>Explore!</Button>
           </Form.Group>
 
         </Form>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="center" />
+        <Card className = "text-center">
+          
           <Card.Body>
             <Card.Title>{this.state.location.display_name}</Card.Title>
             <Card.Text>
-              <h2>Welcome to my app</h2>
+              <h2>Destination & Facts</h2>
 
-              {`${'Longitutde '}`}{this.state.location.lat}<br></br>
-
+              {`${'Latitude '}`}{this.state.location.lat}<br></br>
+              {`${'Longitutde '}`}{this.state.location.lon}<br></br>
 
 
 
@@ -98,7 +98,7 @@ class App extends React.Component {
           </Card.Body>
         </Card>
 
-
+        <hr></hr>
         {this.state.gift.length > 0 &&
           this.state.gift.map(item =>
             <>
