@@ -3,11 +3,9 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Conditions from './conditions.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import MovieData from './movieData.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,13 +22,13 @@ class App extends React.Component {
 
   getLocation = async () => {
     const API = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.searchQuery}&format=json`;
-
+    
     const res = await axios.get(API);
     console.log(res.data);
     this.setState({ location: res.data[0] }); //this is not available globally yet , so you must access lat and lon through arguments inside getForecast function call
 
     console.log(`${this.state.location}`);
-     this.getForecast(res.data[0].lat, res.data[0].lon);
+    this.getWeather(res.data[0].lat, res.data[0].lon);
     this.getMovies(this.state.searchQuery);
   }
 
@@ -52,12 +50,12 @@ class App extends React.Component {
 
   }
 
-  getForecast = async (lat, lon) => {
+  getWeather = async (lat, lon) => {
     try {
       const url = `${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`;
       console.log(url);
       const response = await axios.get(url);
-
+      
       this.setState({ gift: response.data },
         () => console.log(this.state.gift)
       )
@@ -99,17 +97,10 @@ class App extends React.Component {
         </Card>
 
         <hr></hr>
-        {this.state.gift.length > 0 &&
-          this.state.gift.map(item =>
+       
+          {this.state.gift.map(item =>
             <>
-              <Container>
-                <Row>
-                  <Col sm={4}>{item.date}</Col>
-                  <Col sm={4}>{item.temp}</Col>
-                  <Col sm={4}>{item.description}</Col>
-                </Row>
-              
-              </Container>
+              <Conditions con={item} />
             
             </>
      
@@ -117,19 +108,10 @@ class App extends React.Component {
         
           )
         }
-        {this.state.movies.length > 0 &&
-          this.state.movies.map(item =>
+    
+          {this.state.movies.map(item =>
             <>
-              <Container>
-                <Row>
-                  <hr></hr>
-                  <Col sm={4}><h3><u>Movie Title</u></h3><b>{item.title}</b></Col>
-                  <Col sm={4}><h3><u>Movie overview</u></h3>{item.overview}</Col>
-                  <Col sm={4}><h3><u>Movie Popularity</u></h3>{item.popularity}</Col>
-                  
-                </Row>
-              
-              </Container>
+             <MovieData vids={item}/>
             
             </>
      
